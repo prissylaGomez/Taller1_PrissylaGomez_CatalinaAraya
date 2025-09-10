@@ -1,5 +1,3 @@
-#ifndef CURSO_H
-#define CURSO_H
 
 #include <string>
 #include<vector>
@@ -22,7 +20,7 @@ class Curso{
     int getEstudiantesMax();
     string getCarrera();
     string getProfesor();
-    vector<string>Inscritos();
+    vector<string>getInscritos();
     
     void setNombre(string n);
     void setEstudiantesMax(int max);
@@ -33,4 +31,4 @@ class Curso{
     
     void mostrarInfo();
 };
-#endif
+
