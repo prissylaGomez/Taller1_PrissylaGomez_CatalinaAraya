@@ -1,5 +1,5 @@
 #include "estudiante.h"
-
+//hay que tratar de guardar los datos del curso aca, porque estan directamente relacionadas las clases lol
 ListEstudiantes::ListEstudiantes(){
     head = nullptr;
 }
