@@ -12,27 +12,26 @@ ListEstudiantes::~ListEstudiantes(){
     }
 }
 
-void ListEstudiantes::agregarEstudiante(string id, string nombre, string apellido, string carrera, string ingreso){
-    Nodo* nuevo = new Nodo;
-    nuevo->data.id = id;
-    nuevo->data.nombre = nombre;
-    nuevo->data.apellido = apellido;
-    nuevo->data.carrera = carrera;
-    nuevo->data.ingreso = ingreso;
-    
-    nuevo->next = head;
-    head = nuevo;
-    
-    cout <<"Estudiante registrado correctamente\n";
+void ListEstudiantes::agregarEstudiante(int id, string nombre, string apellido, string carrera, string ingreso){
+    Nodo* nuevo = new Nodo{{id,nombre,apellido,carrera,ongreso},nullptr};
+    if(!head){
+        head = nuevo;
+    }else{
+        Nodo* actual = head;
+        while(actual-> next != nullptr){
+            actual = actual->next;
+        }
+        actual->next= nuevo;
+    }
     
 }
 void ListEstudiantes::buscarEstudiante(string id){
     Nodo* actual = head;
     if (!actual){
-        cout << "No hay estudiantes registrados\n";
+        cout << "No hay estudiantes registrados"<< endl;
         return;
     }
-    
+    cout << "Lista de estudiantes registrados" << endl;
     while(actual != nullptr){
         
         if (id == actual->data.id){
@@ -46,14 +45,36 @@ void ListEstudiantes::buscarEstudiante(string id){
         }
     }
 }
-void ListEstudiantes::eliminarEstudiante(String id){
-    Nodo* actual = head;
-    Nodo* anterior = nullptr;
-    
-    while (actual != nullptr){
-        
-        if (id == actual->data.id){
-            
-        } 
+void ListEstudiantes::eliminarEstudiante(int id){
+    if(!head){
+        return false;
     }
+    
+    if(head->data.id == id){
+        Nodo* temp = head;
+        head = head->next;
+        delete temp;
+        return true;
+    }
+      Nodo* actual = head;
+    while(actual->next && actual->next->data.id != id){
+        actual = actual->next;
+    }
+    if(actual->next){
+        Nodo* temp = actual->next;
+        actual->next= actual->next->next;
+        delete temp;
+        return true;
+    }
+    return false;
+    }
+Estudiante* ListaEstudiante::buscarEstudiante(int id){
+    Nodo* actual = head;
+    while(actual){
+        if(actual->data.id == id){
+            return &actual->data;
+        }
+        actual = actual->next;
+    }
+    return nullptr;
 }
