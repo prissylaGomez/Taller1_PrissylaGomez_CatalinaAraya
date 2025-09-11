@@ -4,21 +4,28 @@ ListEstudiantes::ListEstudiantes(){
     head = nullptr;
 }
 ListEstudiantes::~ListEstudiantes(){
-    Nodo* actual = head;
+    NodoEstudiante* actual = head;
     while (actual != nullptr){
-        Nodo* temp = actual;
+        NodoEstudiante* temp = actual;
         actual = actual->next;
         delete temp;
     }
 }
 
+Estudiante::Estudiante(string i, string n, string a, string c, string ing)
+    : id(i), nombre(n), apellido(a), carrera(c), ingreso(ing) {}
+    
+string Estudiante::getId(){return id;}
+string Estudiante::getNombre(){return nombre;}
+string Estudiante::getApellido(){return apellido;}
+string Estudiante::getCarrera(){return carrera;}
+string Estudiante::getIngreso(){return ingreso;}
+
+Estudiante::~Estudiante() {}
+
 void ListEstudiantes::agregarEstudiante(string id, string nombre, string apellido, string carrera, string ingreso){
-    Nodo* nuevo = new Nodo;
-    nuevo->data.id = id;
-    nuevo->data.nombre = nombre;
-    nuevo->data.apellido = apellido;
-    nuevo->data.carrera = carrera;
-    nuevo->data.ingreso = ingreso;
+    NodoEstudiante* nuevo = new NodoEstudiante;
+    nuevo->data = Estudiante(id, nombre, apellido, carrera, ingreso);
     
     nuevo->next = head;
     head = nuevo;
@@ -27,33 +34,42 @@ void ListEstudiantes::agregarEstudiante(string id, string nombre, string apellid
     
 }
 void ListEstudiantes::buscarEstudiante(string id){
-    Nodo* actual = head;
+    NodoEstudiante* actual = head;
     if (!actual){
         cout << "No hay estudiantes registrados\n";
         return;
     }
     
     while(actual != nullptr){
-        
-        if (id == actual->data.id){
+        if (id == actual->data.getId()){
             cout << "Estos son los datos del estudiante:\n";
-            cout << "ID:" << actual->data.id << ", Nombre completo: " << actual-> data.nombre
-            << " " << actual-> data.apellido << ", Carrera: " << actual-> data.carrera 
-            << ", Fecha de ingreso: " << actual-> data.ingreso << "\n";
-            actual = actual->next;
-        }else{
-            cout << "Estudiante no encontrado\n";
+            cout << "ID:" << actual->data.getId() << ", Nombre completo: " << actual-> data.getNombre()
+            << " " << actual-> data.getApellido() << ", Carrera: " << actual-> data.getCarrera() 
+            << ", Fecha de ingreso: " << actual-> data.getIngreso() << "\n";
+            return;
         }
+        actual = actual->next;
     }
+    cout << "Estudiante no encontrado\n";
 }
-void ListEstudiantes::eliminarEstudiante(String id){
-    Nodo* actual = head;
-    Nodo* anterior = nullptr;
+void ListEstudiantes::eliminarEstudiante(string id){
+    NodoEstudiante* actual = head;
+    NodoEstudiante* anterior = nullptr;
     
     while (actual != nullptr){
         
-        if (id == actual->data.id){
-            
-        } 
+        if (actual->data.getId() == id){
+            if (anterior == nullptr){
+                head = actual->next;
+            }else{
+                anterior->next = actual->next;
+            }
+            delete actual;
+            cout << "Estudiante eliminado con exito\n";
+            return;
+        }
+        anterior = actual;
+        actual = actual->next;
     }
+    cout << "Estudiante no encontrado\n";
 }

@@ -5,22 +5,32 @@
 #include <iostream>
 using namespace std;
 
-struct Estudiante{
-    string id;
-    string nombre;
-    string apellido;
-    string carrera;
-    string ingreso;
+class Estudiante{
+    private:
+        string id;
+        string nombre;
+        string apellido;
+        string carrera;
+        string ingreso;
+    public:
+        Estudiante(){}
+        Estudiante(string id, string nombre, string apellido, string carrera, string ingreso);
+        ~Estudiante();
+        
+        string getId();
+        string getNombre();
+        string getApellido();
+        string getCarrera();
+        string getIngreso();
 };
-
-struct Nodo {
+struct NodoEstudiante {
     Estudiante data;
-    Nodo* next;
+    NodoEstudiante* next;
 };
 
 class ListEstudiantes {
     private: 
-    Nodo* head;
+    NodoEstudiante* head;
     
     public:
     ListEstudiantes();
@@ -28,10 +38,8 @@ class ListEstudiantes {
     
     void agregarEstudiante(string id, string nombre, string apellido, string carrera, string ingreso);
     void buscarEstudiante(string id);
-    void eliminarEstudiante(int id);
+    void eliminarEstudiante(string id);
 };
 
 #endif
-
-
 
