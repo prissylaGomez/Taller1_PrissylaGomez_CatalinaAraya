@@ -18,5 +18,30 @@ string Nota::getCodigoCurso(){
 vector<float> Nota::getNotas(){
     return notas;
 }
-//agh hay que poner lo de agregar nota y calcular promedio
-//tambn hay q poner aqui lo de mostrar nota ;;
+bool Nota::agregarNota(float nota){
+    if(nota< 1,0 || nota > 7,0){
+        cout<<"Error: nota fuera de rango"<<endl;
+        return false;
+    }
+    notas.push_back(nota);
+    return true;
+}
+float Nota::calcularPromedio(){
+    if (notas.empty()){
+        suma+=n;
+    }
+    return suma/notas.size();
+}
+void Nota::mostrarNota(){
+    cout << "Estudiante: " << idAlumno << " |Curso: " << codigoCurso << endl;
+    if(notas.empty()){
+        cout << "no hay registro de notas " << endl;
+        return;
+    }
+    cout << "Notas: ";
+    for(float n : notas){
+        cout << n << " " << endl;
+    }
+    cout << "Promedio: " << calcularProm() << endl;
+    }
+}
