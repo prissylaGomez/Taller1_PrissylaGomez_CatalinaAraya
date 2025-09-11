@@ -33,13 +33,38 @@ int main(){
                     cin >> eleccion;
                     
                     switch (eleccion){
-                        case 1:
+                        case 1:{
+                            string id, nombre, apellido, carrera, ingreso;
+                            cout << "Ingrese los datos del alumno a registrar:\n";
+                            cin.ignore();
+                            cout << "ID: ";
+                            getline(cin, id);
+                            cout << "Nombre: ";
+                            getline(cin, nombre);
+                            cout << "Apellido: ";
+                            getline(cin, apellido);
+                            cout << "Carrera: ";
+                            getline(cin, carrera);
+                            cout << "Fecha de ingreso (dd/mm/aaaa): ";
+                            getline(cin, ingreso);
+                                                    
+                            list.agregarEstudiante(id, nombre, apellido, carrera, ingreso);
                             break;
-                        case 2:
-                            list.mostrarEstudiantes();
+                        }
+                        case 2:{
+                            string id;
+                            cout << "Ingrese el id del alumno que desea buscar: ";
+                            cin >> id;
+                            list.buscarEstudiante(id);
                             break;
-                        case 3:
+                        }
+                        case 3:{
+                            string id;
+                            cout << "Ingrese el id del alumno que desea eliminar: ";
+                            cin >> id;
+                            list.eliminarEstudiante(id);
                             break;
+                        }
                         default:
                             cout << "Opcion no valida";
                     }

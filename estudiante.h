@@ -6,7 +6,7 @@
 using namespace std;
 
 struct Estudiante{
-    int id;
+    string id;
     string nombre;
     string apellido;
     string carrera;
@@ -21,15 +21,14 @@ struct Nodo {
 class ListEstudiantes {
     private: 
     Nodo* head;
+    
     public:
     ListEstudiantes();
     ~ListEstudiantes();
     
-    void agregarEstudiante(int id, string nombre, string apellido, string carrera, string ingreso);
-    void mostrarEstudiantes();
-    bool eliminarEstudiante(int id);
-    Estudiante* buscarEstudiante(int id);
-    
+    void agregarEstudiante(string id, string nombre, string apellido, string carrera, string ingreso);
+    void buscarEstudiante(string id);
+    void eliminarEstudiante(int id);
 };
 
 #endif
