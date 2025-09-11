@@ -2,7 +2,7 @@
 #include "estudiante.h"
 #include <list>
 using namespace std;
-
+// Nota n1("123", "INF-101"); asi se agregan notas
 int main(){
     
     ListEstudiantes list;
