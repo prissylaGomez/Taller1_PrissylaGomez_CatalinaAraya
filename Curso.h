@@ -6,6 +6,7 @@
 using namespace std;
 
 struct NodoInscritos;
+
 class Curso {
 private:
     string codigo;
@@ -13,9 +14,10 @@ private:
     int estudiantes_max;
     string carrera;
     string profesor;
-    NodoIncritos* inicio;
+    NodoInscritos* inicio;
 
 public:
+    Curso(){}
     Curso(string c, string n, int max, string car, string profe);
     ~Curso();
 
@@ -25,8 +27,8 @@ public:
     string getCarrera();
     string getProfesor();
     
-    bool inscribirEstudiante(string idAlumno);
-    bool eliminarEstudiante(string idAlumno);
+    void inscribirEstudiante(string idAlumno);
+    void eliminarEstudiante(string idAlumno);
     void mostrarInfo();
 };
 struct NodoCursos {
@@ -41,8 +43,8 @@ class ListCursos{
         ~ListCursos();
         
         void agregarCurso(string codigo, string nombre, int max, string carrera, string profesor);
-        bool eliminarCurso(string codigo);
+        void eliminarCurso(string codigo);
         void mostrarCurso(string codigo);
         void mostrarInfoCursos();
 };
-
+#endif
