@@ -5,8 +5,6 @@
 #include <string>
 using namespace std;
 
-struct NodoInscritos;
-
 class Curso {
 private:
     string codigo;
@@ -14,7 +12,6 @@ private:
     int estudiantes_max;
     string carrera;
     string profesor;
-    NodoInscritos* inicio;
 
 public:
     Curso(){}
@@ -27,9 +24,6 @@ public:
     string getCarrera();
     string getProfesor();
     
-    void inscribirEstudiante(string idAlumno);
-    void eliminarEstudiante(string idAlumno);
-    void mostrarInfo();
 };
 struct NodoCursos {
     Curso data;
@@ -45,6 +39,6 @@ class ListCursos{
         void agregarCurso(string codigo, string nombre, int max, string carrera, string profesor);
         void eliminarCurso(string codigo);
         void mostrarCurso(string codigo);
-        void mostrarInfoCursos();
+        Curso* buscarPorCodigo(string codigo);
 };
 #endif

@@ -1,9 +1,12 @@
 #include "Curso.h"
+#include "estudiante.h"
 
 using namespace std;
 
 Curso::Curso(string c, string n, int maxi, string carrera, string profe)
-    : codigo(c), nombre(n), estudiantes_max(maxi), carrera(carrera), profesor(profe) {}
+    : codigo(c), nombre(n), estudiantes_max(maxi), carrera(carrera), profesor(profe) {
+        inicioInscritos = nullptr;
+    }
 
 string Curso::getCodigo(){return codigo;}
 string Curso::getNombre(){return nombre;}
@@ -29,7 +32,7 @@ void ListCursos::agregarCurso(string codigo, string nombre, int max, string carr
     nuevo->data = Curso(codigo, nombre, max, carrera, profe);
     
     nuevo->next = inicio;
-    inicio = nuevo;
+     = nuevo;
     
     cout << "Curso creado correctamente\n";
 }
@@ -72,5 +75,18 @@ void ListCursos::eliminarCurso(string codigo){
         actual = actual->next;
     }
     cout << "Curso no encontrado\n";
+}
+void Curso::incribirEstudiante(ListEstudiante listE, string id){
+    EStudiante* e = ListEstudiante.
+}
+Curso* ListCursos::buscarPorCodigo(string codigo){
+    NodoCursos* actual = inicio;
+    while(actual){ 
+        if (actual->data.getCodigo() == codigo) {
+            return &(actual->data); 
+        }
+        actual = actual->next; 
+    }
+    return nullptr;
 }
 
