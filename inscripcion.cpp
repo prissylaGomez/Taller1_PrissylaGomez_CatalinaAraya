@@ -3,13 +3,13 @@
 ListInscripciones::ListInscripciones(){ head = nullptr; }
 
 ListInscripciones::~ListInscripciones(){
-    NodoInscripcion* curr = head;
-    while(curr){
+    NodoInscripcion* actual = head;
+    while(actual){
         NodoInscripcion* tmp = curr;
         // borrar notas
         NodoNota* n = tmp->notasHead;
         while(n){ NodoNota* nt = n; n = n->next; delete nt; }
-        curr = curr->next;
+        actual = actual->next;
         delete tmp;
     }
 }
@@ -38,18 +38,19 @@ void ListInscripciones::inscribir(string idAlumno, string codigoCurso){
 
 // Elimina una inscripcion específica 
 void ListInscripciones::eliminarInscripcion(string idAlumno, string codigoCurso){
-    NodoInscripcion* curr = head; NodoInscripcion* prev = nullptr;
-    while(curr){
-        if (curr->idAlumno == idAlumno && curr->codigoCurso == codigoCurso){
-            if (!prev) head = curr->next; else prev->next = curr->next;
-            NodoNota* n = curr->notasHead;
+    NodoInscripcion* actual = head; NodoInscripcion* prev = nullptr;
+    while(actual){
+        if (actual->idAlumno == idAlumno && actual->codigoCurso == codigoCurso){
+            if (!prev) head = actual->next; else prev->next = actual ->next;
+            NodoNota* n = actual->notasHead;
             while(n){ NodoNota* nt = n; n = n->next; delete nt; }
-            delete curr;
+            delete actual;
             cout << "Inscripcion eliminada: " << idAlumno << " -/-> " << codigoCurso << "
 ";
             return;
         }
-        prev = curr; curr = curr->next;
+        prev = actual; 
+        actual= actual->next;
     }
     cout << "Inscripcion no encontrada para " << idAlumno << " en " << codigoCurso << ".
 ";
@@ -57,18 +58,24 @@ void ListInscripciones::eliminarInscripcion(string idAlumno, string codigoCurso)
 
 // Elimina todas las inscripciones de un alumno 
 void ListInscripciones::eliminarInscripcionesPorAlumno(string idAlumno){
-    NodoInscripcion* curr = head; NodoInscripcion* prev = nullptr;
-    while(curr){
-        if (curr->idAlumno == idAlumno){
-            NodoInscripcion* aBorrar = curr;
-            if (!prev) head = curr->next; else prev->next = curr->next;
-            curr = curr->next;
+    NodoInscripcion* actual = head;
+    NodoInscripcion* prev = nullptr;
+    while(actual){
+        if (actual->idAlumno == idAlumno){
+            NodoInscripcion* aBorrar = actual;
+            if (!prev) head = actual->next; else prev->next = actual->next;
+            actual = actual->next;
             NodoNota* n = aBorrar->notasHead;
-            while(n){ NodoNota* nt = n; n = n->next; delete nt; }
+            while(n){ 
+                NodoNota* nt = n;
+                n = n->next; 
+                delete nt; 
+            }
             delete aBorrar;
             continue;
         }
-        prev = curr; curr = curr->next;
+        prev = actual;
+        actual = actual->next;
     }
     cout << "Todas las inscripciones del alumno " << idAlumno << " han sido eliminadas (si existian).
 ";
@@ -76,18 +83,24 @@ void ListInscripciones::eliminarInscripcionesPorAlumno(string idAlumno){
 
 // Elimina todas las inscripciones de un curso 
 void ListInscripciones::eliminarInscripcionesPorCurso(string codigoCurso){
-    NodoInscripcion* curr = head; NodoInscripcion* prev = nullptr;
-    while(curr){
-        if (curr->codigoCurso == codigoCurso){
-            NodoInscripcion* aBorrar = curr;
-            if (!prev) head = curr->next; else prev->next = curr->next;
-            curr = curr->next;
+    NodoInscripcion* actual = head;
+    NodoInscripcion* prev = nullptr;
+    while(actual){
+        if (actual->codigoCurso == codigoCurso){
+            NodoInscripcion* aBorrar = actual;
+            if (!prev) head = actual->next; else prev->next = actual->next;
+            actual = actual->next;
             NodoNota* n = aBorrar->notasHead;
-            while(n){ NodoNota* nt = n; n = n->next; delete nt; }
+            while(n){ 
+                NodoNota* nt = n;
+                n = n->next;
+                delete nt;
+            }
             delete aBorrar;
             continue;
         }
-        prev = curr; curr = curr->next;
+        prev = actual;
+        actual = actual->next;
     }
     cout << "Todas las inscripciones del curso " << codigoCurso << " han sido eliminadas (si existian).
 ";
@@ -95,117 +108,157 @@ void ListInscripciones::eliminarInscripcionesPorCurso(string codigoCurso){
 
 // Cuenta inscritos en un curso
 int ListInscripciones::contarInscritosCurso(string codigoCurso){
-    int c = 0; NodoInscripcion* curr = head;
-    while(curr){ if (curr->codigoCurso == codigoCurso) c++; curr = curr->next; }
+    int c = 0;
+    NodoInscripcion* actual = head;
+    while(actual){
+        if (actual->codigoCurso == codigoCurso){
+            c++;
+        actual = actual->next; 
+        }
     return c;
 }
 
 // Imprime si inscrito o no en curso
 void ListInscripciones::estaInscrito(string idAlumno, string codigoCurso){
-    NodoInscripcion* curr = head;
-    while(curr){ if (curr->idAlumno == idAlumno && curr->codigoCurso == codigoCurso){ cout << "El alumno " << idAlumno << " SI está inscrito en " << codigoCurso << "
-"; return; } curr = curr->next; }
-    cout << "El alumno " << idAlumno << " NO está inscrito en " << codigoCurso << "
+    NodoInscripcion* actual = head;
+    while(actual){ 
+        if (actual->idAlumno == idAlumno && actual->codigoCurso == codigoCurso){ 
+            cout << "El alumno " << idAlumno << " SI está inscrito en " << codigoCurso << "";
+                return;
+        } 
+        actual = actual->next; 
+    }
+    cout << "El alumno " << idAlumno << " no está inscrito en " << codigoCurso << "
 ";
 }
 
 // Agrega una nota a la inscripcion
 void ListInscripciones::agregarNota(string idAlumno, string codigoCurso, float nota){
-    NodoInscripcion* curr = head;
-    while(curr){
-        if (curr->idAlumno == idAlumno && curr->codigoCurso == codigoCurso){
-            NodoNota* n = new NodoNota; n->nota = nota; n->next = curr->notasHead; curr->notasHead = n;
-            cout << "Nota agregada: " << nota << " para " << idAlumno << " en " << codigoCourse << "
-";
+    NodoInscripcion* actual = head;
+    while(actual){
+        if (actual->idAlumno == idAlumno && actual->codigoCurso == codigoCurso){
+            NodoNota* n = new NodoNota;
+            n->nota = nota;
+            n->next = curr->notasHead;
+            actual->notasHead = n;
+            cout << "Nota agregada: " << nota << " para " << idAlumno << " en " << codigoCourse << "";
             return;
         }
-        curr = curr->next;
+        actual = actual->next;
     }
-    cout << "Inscripcion no encontrada. No se pudo agregar la nota.
-";
+    cout << "Inscripcion no encontrada. No se pudo agregar la nota.";
 }
 
 // Muestra las notas de una inscripcion
 void ListInscripciones::mostrarNotas(string idAlumno, string codigoCurso){
-    NodoInscripcion* curr = head;
-    while(curr){
-        if (curr->idAlumno == idAlumno && curr->codigoCurso == codigoCurso){
-            NodoNota* n = curr->notasHead; if (!n){ cout << "No hay notas registradas para este alumno en dicho curso.
-"; return; }
-            cout << "Notas de " << idAlumno << " en " << codigoCurso << ":
-";
-            while(n){ cout << " - " << n->nota << "
-"; n = n->next; }
+    NodoInscripcion* actual = head;
+    while(actual){
+        if (actual->idAlumno == idAlumno && actual->codigoCurso == codigoCurso){
+            NodoNota* n = actual->notasHead;
+            if (!n){ 
+                cout << "No hay notas registradas para este alumno en dicho curso.";
+                return;
+            }
+            cout << "Notas de " << idAlumno << " en " << codigoCurso << ":";
+            while(n){ 
+                cout << " - " << n->nota << " "; n = n->next;
+            }
             return;
         }
-        curr = curr->next;
+        actual = actual->next;
     }
-    cout << "Inscripcion no encontrada.
-";
+    cout << "Inscripcion no encontrada.";
 }
 
 // cursos donde esta inscrito alumno
 void ListInscripciones::mostrarCursosDeAlumno(string idAlumno){
-    NodoInscripcion* curr = head; bool found = false;
-    cout << "Cursos de alumno " << idAlumno << ":
-";
-    while(curr){ if (curr->idAlumno == idAlumno){ cout << " - " << curr->codigoCurso << "
-"; found = true; } curr = curr->next; }
-    if (!found) cout << "El alumno no tiene inscripciones.
-";
+    NodoInscripcion* actual = head;
+    bool found = false;
+    cout << "Cursos de alumno " << idAlumno << ": ";
+    while(actual){ 
+if (actual->idAlumno == idAlumno){
+    cout << " - " << actual->codigoCurso << " ";
+    found = true;
+} 
+        actual = actual->next; 
+    }
+    if (!found) {
+        cout << "El alumno no tiene inscripciones. ";
+    }
 }
 
 // alumnos inscritos en curso
 void ListInscripciones::mostrarAlumnosDeCurso(string codigoCurso, ListEstudiantes* estudiantes){
-    NodoInscripcion* curr = head; bool found = false;
-    cout << "Alumnos en curso " << codigoCourse << ":
-";
-    while(curr){
-        if (curr->codigoCurso == codigoCourse){
-            Estudiante* e = estudiantes->buscarPorId(curr->idAlumno);
-            if (e) e->mostrar(); else cout << "ID: " << curr->idAlumno << " (sin datos)
-";
+    NodoInscripcion* actual = head;
+    bool found = false;
+    cout << "Alumnos en curso " << codigoCourse << ": ";
+    while(actual){
+        if (actual->codigoCurso == codigoCourse){
+            Estudiante* e = estudiantes->buscarPorId(actual->idAlumno);
+            if {
+                (e) e->mostrar();
+               }
+            else{ 
+                cout << "ID: " << actual->idAlumno << " sin datos ";
+            }
             found = true;
         }
-        curr = curr->next;
+        actual = actual->next;
     }
-    if (!found) cout << "No hay alumnos inscritos en ese curso.
-";
+    if (!found) cout << "No hay alumnos inscritos en ese curso";
 }
 
 // promedio del alumno en un curso
 void ListInscripciones::mostrarPromedioAlumnoCurso(string idAlumno, string codigoCurso){
-    NodoInscripcion* curr = head;
-    while(curr){
-        if (curr->idAlumno == idAlumno && curr->codigoCurso == codigoCurso){
-            NodoNota* n = curr->notasHead; if (!n){ cout << "No hay notas para calcular promedio.
-"; return; }
-            float sum = 0; int cnt = 0;
-            while(n){ sum += n->nota; cnt++; n = n->next; }
-            cout << "Promedio en curso " << codigoCourse << ": " << (sum / cnt) << "
-";
+    NodoInscripcion* actual = head;
+    while(actual){
+        if (actual->idAlumno == idAlumno && actual->codigoCurso == codigoCurso){
+            NodoNota* n = actual->notasHead;
+            if (!n){
+                cout << "No hay notas para calcular promedio. ";
+                return;
+            }
+            float sum = 0;
+            int cnt = 0;
+            while(n){ 
+                sum += n->nota;
+                cnt++;
+                n = n->next;
+            }
+            cout << "Promedio en curso " << codigoCourse << ": " << (sum / cnt) << " ";
             return;
         }
-        curr = curr->next;
+        actual = actual->next;
     }
-    cout << "Inscripcion no encontrada.
-";
+    cout << "Inscripcion no encontrada. ";
 }
 
 // promedio general del alumno 
 void ListInscripciones::mostrarPromedioGeneralAlumno(string idAlumno){
-    NodoInscripcion* curr = head; float sumProm = 0; int cursos = 0;
-    while(curr){
-        if (curr->idAlumno == idAlumno){
-            NodoNota* n = curr->notasHead; if (!n){ curr = curr->next; continue; }
+    NodoInscripcion* actual = head;
+float sumProm = 0;
+int cursos = 0;
+    while(actual){
+        if (actual->idAlumno == idAlumno){
+            NodoNota* n = actual->notasHead;
+            if (!n){
+                actual = actual->next;
+                continue;
+            }
             float sum = 0; int cnt = 0;
-            while(n){ sum += n->nota; cnt++; n = n->next; }
-            if (cnt > 0){ sumProm += (sum / cnt); cursos++; }
+            while(n){
+                sum += n->nota;
+                cnt++;
+                n = n->next;
+            }
+            if (cnt > 0){
+                sumProm += (sum / cnt);
+                cursos++;
+            }
         }
-        curr = curr->next;
+        actual = actual->next;
     }
-    if (cursos == 0) { cout << "No hay promedios para calcular.
-"; return; }
-    cout << "Promedio general del alumno: " << (sumProm / cursos) << "
-";
+    if (cursos == 0) { cout << "No hay promedios para calcular. "; 
+        return; }
+    cout << "Promedio general del alumno: " << (sumProm / cursos) << " ";
 }
