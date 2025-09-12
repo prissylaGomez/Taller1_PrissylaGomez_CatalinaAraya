@@ -1,3 +1,12 @@
+/*
+Proyecto taller 1
+Autoras:
+Catalina Araya;  
+Pryssilla Gomez;
+Descripcion general:
+gestionar alumnos, cursos , inscripciones. 
+Incluye menús interactivos para registrar, buscar y eliminar alumnos y cursos
+*/
 #include <iostream>
 #include "estudiante.h"
 #include "Curso.h"
@@ -7,14 +16,14 @@
 using namespace std;
 
 int main(){
-    
-    ListEstudiantes list;
-    ListCursos ListaCursos;
-    ListInscripciones listIns;
-    
+    //estas son las listas para manejar la información
+    ListEstudiantes list; //lista enlazada a estudiantes
+    ListCursos ListaCursos;//enlazada a cursos
+    ListInscripciones listIns;//enlazada a inscripciones
+    //estas sin las tipicas var para guardar la opcion del menu y el sub menu 
     int opcion;
     int eleccion;
-    
+    //bucle principal del menu de gestion 
     do {
         cout << "\n Menu de gestion \n";
         cout << "1. Gestion de alumnos\n";
@@ -27,6 +36,7 @@ int main(){
         cin >> opcion;
         
         switch (opcion){
+            //aqui las opciones de manejo de alumnos 
             case 1:
                 do{
                     cout << "Gestion de alumnos\n";
@@ -38,6 +48,7 @@ int main(){
                     cin >> eleccion;
                     
                     switch (eleccion){
+                        //registramos alumno
                         case 1:{
                             string id, nombre, apellido, carrera, ingreso;
                             cout << "Ingrese los datos del alumno a registrar:\n";
@@ -61,6 +72,7 @@ int main(){
                             break;
                         }
                         case 2:{
+                            //busqueda de alumno por id
                             string id;
                             cout << "Ingrese el id o nombre del alumno que desea buscar: ";
                             cin >> id;
@@ -68,6 +80,7 @@ int main(){
                             break;
                         }
                         case 3:{
+                            //eliminamos un alumno ya registrado 
                             string id;
                             cout << "Ingrese el id del alumno que desea eliminar: ";
                             cin >> id;
@@ -82,6 +95,7 @@ int main(){
                 }while (eleccion != 4);
             break;
             case 2:
+                //manejo de cursos
                 do{
                     cout << "Gestion de cursos\n";
                     cout << "1. Crear curso\n";
@@ -93,6 +107,7 @@ int main(){
                     
                     switch (eleccion){
                         case 1:{
+                            //creamos un curso nuevo
                             string codigo, nombre, carrera, profesor;
                             int max_est;
                             cout << "Ingrese los datos del curso a crear:\n";
@@ -117,6 +132,7 @@ int main(){
                             break;
                         }
                         case 2:{
+                            //informacion del curso se muestra.
                             string curso;
                             cin.ignore();
                             cout << "Ingrese el nombre o codigo del curso: ";
@@ -125,6 +141,7 @@ int main(){
                             break;
                         }
                         case 3:{
+                            //eliminamos un curso existente
                             string codigo;
                             cin.ignore();
                             cout << "Ingrese el codigo del curso a eliminar: ";
@@ -133,13 +150,16 @@ int main(){
                             break;
                         }
                         default:
+                            //e control de errores.
                             if (eleccion != 4){
                                 cout << "Opcion no valida";   
                             }
                     }
                 }while (eleccion != 4);
+                
                 break;
             case 3:
+                //aqui manejamos la inscripcion de cursos 
                 do{
                     cout << "Inscripcion a cursos\n";
                     cout << "1. Incribir alumno\n";
@@ -150,6 +170,7 @@ int main(){
                     
                     switch (eleccion){
                         case 1:{
+                            //iscribimos alumno en curso
                             string curso, estudiante;
                             cout << "Ingrese el id del alumno que desea inscribir: ";
                             getline(cin, estudiante);
@@ -176,6 +197,7 @@ int main(){
                             break;
                         }
                         case 2:{
+                            //eliminamos inscripcion de alumno en curso
                             string curso, estudiante;
                             cout << "Ingrese el id del alumno que desea eliminar: ";
                             getline(cin, estudiante);
@@ -196,6 +218,7 @@ int main(){
                 }while(eleccion != 3);
                 break;
             case 4:{
+                //controlamos lo relacionado a las notas
                 string estudiante;
                 float nota;
                 string conti;
@@ -215,6 +238,7 @@ int main(){
                     cout << "El alumno no está inscrito en ese curso.\n";
                     continue;
                 }
+                //aqui se deja ingresar varias notas 
                 do{
                     cout << "Ingrese la nota: ";
                     cin >> nota;
@@ -235,6 +259,7 @@ int main(){
                 break;
             }
             case 5:{
+                //aqui generamos los reportes 
                 int accion;
                 do{
                     cout << "Elija el tipo de reporte que desea: \n";
@@ -285,7 +310,8 @@ int main(){
                 break;
             }
             default:
+                //otro control de errores.
                 cout << "Opcion no valida\n";
         }
-    }while (opcion != 6);
+    }while (opcion != 6);//aqui salimos del programa
 }
