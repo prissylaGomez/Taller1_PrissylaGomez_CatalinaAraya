@@ -10,6 +10,7 @@ int main(){
     
     ListEstudiantes list;
     ListCursos ListaCursos;
+    ListInscripciones listIns;
     
     int opcion;
     int eleccion;
@@ -43,6 +44,10 @@ int main(){
                             cin.ignore();
                             cout << "ID: ";
                             getline(cin, id);
+                            if (ListEstudiantes.buscarPorId(id) != nullptr){
+                                cout << "Ya existe un alumno con ese Id\n"
+                                continue;
+                            }
                             cout << "Nombre: ";
                             getline(cin, nombre);
                             cout << "Apellido: ";
@@ -92,6 +97,10 @@ int main(){
                             int max_est;
                             cout << "Ingrese los datos del curso a crear:\n";
                             cin.ignore();
+                            if (ListaCursos.buscarPorCodigo(codigo) != nullptr){
+                                cout << "Ya existe un curso con ese codigo\n";
+                                continue;
+                            }
                             cout << "Codigo: ";
                             getline(cin, codigo);
                             cout << "Nombre: ";
@@ -144,8 +153,26 @@ int main(){
                             string curso, estudiante;
                             cout << "Ingrese el id del alumno que desea inscribir: ";
                             getline(cin, estudiante);
+                            Estudiante* est = ListEstudiantes.buscarPorId(id);
+                            if (!e){
+                                cout << "Alumno no encontrado\n";
+                                continue;
+                            }
                             cout << "Ingrese el codigo del curso al que se va a inscribir: ";
                             getline(cin, curso);
+                            Curso* c = ListaCursos.buscarPorCodigo(curso);
+                            if (!c){ 
+                                cout << "Curso no encontrado\n"; 
+                                continue; 
+                            }
+                            int inscritos = listaIns.contarInscritosCurso(curso);
+                            if (inscritos >= c->getEstudiantesMax()){
+                                 cout << "Curso lleno\n"; continue;
+                            }
+                            if (listaIns.inscribir(id,codigo)){
+                                 cout << "Inscripcion realizada con exito\n";
+                            } else {
+                                cout << "El alumno ya estaba inscrito en ese curso\n";
                             break;
                         }
                         case 2:{
@@ -154,6 +181,11 @@ int main(){
                             getline(cin, estudiante);
                             cout << "Ingrese el codigo del curso del cual lo va a eliminar: ";
                             getline(cin, curso);
+                            if (listaIns.eliminarInscripcion(id,codigo)){
+                                cout << "Inscripcion eliminada\n";
+                            } else {
+                                cout << "Inscripcion no encontrada\n";
+                            }
                             break;
                         }
                         default:
@@ -167,12 +199,22 @@ int main(){
                 string estudiante;
                 float nota;
                 string conti;
-                vector<float> notas;
                 bool continuar = true;
                 
                 cin.ignore();
                 cout << "Ingrese el id del alumno que desea registrar notas: ";
                 getline(cin, estudiante);
+                Estudiante* e = listaEst.buscarPorId(id);
+                if (!e){
+                    cout << "Alumno no encontrado.\n";
+                    continue; 
+                }
+                cout << "Ingrese el curso al que pertenece el alumno: ";
+                getline(cin, curso);
+                if (!listaIns.estaInscrito(id,codigo)){
+                    cout << "El alumno no está inscrito en ese curso.\n";
+                    continue;
+                }
                 do{
                     cout << "Ingrese la nota: ";
                     cin >> nota;
@@ -208,14 +250,14 @@ int main(){
                             string carrera;
                             cout << "Ingrese la carrera: ";
                             getline(cin, carrera);
-                            
+                            listaEst.mostrarPorCarrera(carrera);
                             break;
                         }
                         case 2:{
                             string estudiante;
                             cout << "Ingrese el id del alumno: ";
                             getline(cin, estudiante);
-                            
+                            listaIns.mostrarCursosDeAlumno(estudiante);
                             break;
                         }
                         case 3:{
@@ -224,12 +266,14 @@ int main(){
                             getline(cin, estudiante);
                             cout << "Ingrese el curso: ";
                             getline(cin, curso);
+                            listaIns.mostrarPromedioAlumnoCurso(estudiante, curso);
                             break;
                         }
                         case 4:{
                             string estudiante;
                             cout << "Ingrese el id del alumno: ";
                             getline(cin, estudiante);
+                            listaIns.mostrarPromedioGeneralAlumno(estudiante);
                             break;
                         }
                         default:
@@ -241,7 +285,7 @@ int main(){
                 break;
             }
             default:
-                cout << "Opcion no valida.\n";
+                cout << "Opcion no valida\n";
         }
     }while (opcion != 6);
 }
