@@ -27,8 +27,11 @@ class ListEstudiantes {
     ~ListEstudiantes();
     
     void agregarEstudiante(string id, string nombre, string apellido, string carrera, string ingreso);
-    void buscarEstudiante(string id);
+    void buscarEstudiantePorId(string id);
+    void buscarEstudiantePorNombre(string nombre);
     void eliminarEstudiante(int id);
+    Estudiante* obtenerEstudiante(string id);
+    void mostrarEstudiante();
 };
 
 #endif
