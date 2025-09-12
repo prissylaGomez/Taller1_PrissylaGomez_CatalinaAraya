@@ -13,7 +13,7 @@ ListEstudiantes::~ListEstudiantes(){
 }
 
 Estudiante::Estudiante(string i, string n, string a, string c, string ing)
-    : id(i), nombre(n), apellido(a), carrera(c), ingreso(ing) {}
+    : id(i), nombre(n), apellido(a), carrera(c), ingreso(ing), cursos(nullptr) {}
     
 string Estudiante::getId(){return id;}
 string Estudiante::getNombre(){return nombre;}
@@ -72,4 +72,25 @@ void ListEstudiantes::eliminarEstudiante(string id){
         actual = actual->next;
     }
     cout << "Estudiante no encontrado\n";
+}
+Estudiante* ListEstudiantes::buscarPorId(String id){
+    NodoEstudiante* actual = head;
+    while(actual){
+        if (actual->data.getId() == id) {
+            return &(actual->data);
+        }
+        actual = actual->next;
+    }
+    return nullptr;
+}
+void ListEstudiantes::mostrarPorCarrera(String carrera){
+    NodoEstudiante* actual = head;
+    bool found = false;
+    while(actual){
+        if (actual->data.getCarrera() == carrera){ 
+            actual->data.mostrar(); found = true; 
+        }
+        actual = actual->next;
+    }
+    if (!found) cout << "No hay estudiantes en la carrera indicada\n";
 }

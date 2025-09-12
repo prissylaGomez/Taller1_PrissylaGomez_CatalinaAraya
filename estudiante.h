@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include "Curso.h"
 using namespace std;
 
 class Estudiante{
@@ -12,6 +13,7 @@ class Estudiante{
         string apellido;
         string carrera;
         string ingreso;
+
     public:
         Estudiante(){}
         Estudiante(string id, string nombre, string apellido, string carrera, string ingreso);
@@ -39,7 +41,8 @@ class ListEstudiantes {
     void agregarEstudiante(string id, string nombre, string apellido, string carrera, string ingreso);
     void buscarEstudiante(string id);
     void eliminarEstudiante(string id);
+    EStudiante* buscarPorId(String id);
+    void mostarPorCarrera(string carrera);
 };
-
 #endif
 
