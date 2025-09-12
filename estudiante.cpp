@@ -41,7 +41,7 @@ void ListEstudiantes::buscarEstudiante(string id){
     }
     
     while(actual != nullptr){
-        if (id == actual->data.getId()){
+        if (id == actual->data.getId() || id == actual->data.getNombre()){
             cout << "Estos son los datos del estudiante:\n";
             cout << "ID:" << actual->data.getId() << ", Nombre completo: " << actual-> data.getNombre()
             << " " << actual-> data.getApellido() << ", Carrera: " << actual-> data.getCarrera() 

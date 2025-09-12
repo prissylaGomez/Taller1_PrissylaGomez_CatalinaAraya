@@ -1,5 +1,6 @@
 #include <iostream>
 #include "estudiante.h"
+#include "Curso.h"
 #include <list>
 #include<vector>
 #include <algorithm> 
@@ -8,6 +9,7 @@ using namespace std;
 int main(){
     
     ListEstudiantes list;
+    ListCursos ListaCursos;
     
     int opcion;
     int eleccion;
@@ -96,24 +98,29 @@ int main(){
                             getline(cin, nombre);
                             cout << "Maximo de estdiantes: ";
                             cin >> max_est;
+                            cin.ignore();
                             cout << "Carrera: ";
                             getline(cin, carrera);
                             cout << "Profesor: ";
                             getline(cin, profesor);
                             
+                            ListaCursos.agregarCurso(codigo, nombre, max_est, carrera, profesor);
                             break;
                         }
                         case 2:{
                             string curso;
+                            cin.ignore();
                             cout << "Ingrese el nombre o codigo del curso: ";
                             getline(cin, curso);
-                        
+                            ListaCursos.mostrarCurso(curso);
                             break;
                         }
                         case 3:{
                             string codigo;
+                            cin.ignore();
                             cout << "Ingrese el codigo del curso a eliminar: ";
                             getline(cin, codigo);
+                            ListaCursos.eliminarCurso(codigo);
                             break;
                         }
                         default:
