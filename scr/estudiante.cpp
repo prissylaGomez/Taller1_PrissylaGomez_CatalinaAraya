@@ -1,9 +1,13 @@
+/*
+implementacion de clase Estudiante y de la lista enlazada
+*/
 #include "estudiante.h"
-
+//aqui estan lo metodos de la lista (?
 ListEstudiantes::ListEstudiantes(){
-    head = nullptr;
+    head = nullptr;//lista vacia
 }
 ListEstudiantes::~ListEstudiantes(){
+    //recorremos la lista y liberamos la memoria de los nodos
     NodoEstudiante* actual = head;
     while (actual != nullptr){
         NodoEstudiante* temp = actual;
@@ -11,7 +15,7 @@ ListEstudiantes::~ListEstudiantes(){
         delete temp;
     }
 }
-
+//metodos de Estudiante
 Estudiante::Estudiante(string i, string n, string a, string c, string ing)
     : id(i), nombre(n), apellido(a), carrera(c), ingreso(ing), cursos(nullptr) {}
     
@@ -22,7 +26,9 @@ string Estudiante::getCarrera(){return carrera;}
 string Estudiante::getIngreso(){return ingreso;}
 
 Estudiante::~Estudiante() {}
+//funciones de la lista
 
+//agregar un estudiante al comienzo  de la lista 
 void ListEstudiantes::agregarEstudiante(string id, string nombre, string apellido, string carrera, string ingreso){
     NodoEstudiante* nuevo = new NodoEstudiante;
     nuevo->data = Estudiante(id, nombre, apellido, carrera, ingreso);
@@ -33,6 +39,7 @@ void ListEstudiantes::agregarEstudiante(string id, string nombre, string apellid
     cout <<"Estudiante registrado correctamente\n";
     
 }
+//buscar estudiante por id o nombre
 void ListEstudiantes::buscarEstudiante(string id){
     NodoEstudiante* actual = head;
     if (!actual){
@@ -52,6 +59,7 @@ void ListEstudiantes::buscarEstudiante(string id){
     }
     cout << "Estudiante no encontrado\n";
 }
+//alimina estudiante de la lista
 void ListEstudiantes::eliminarEstudiante(string id){
     NodoEstudiante* actual = head;
     NodoEstudiante* anterior = nullptr;
@@ -73,6 +81,7 @@ void ListEstudiantes::eliminarEstudiante(string id){
     }
     cout << "Estudiante no encontrado\n";
 }
+//buscar y devolver un puntero a un estudiante
 Estudiante* ListEstudiantes::buscarPorId(String id){
     NodoEstudiante* actual = head;
     while(actual){
@@ -83,6 +92,7 @@ Estudiante* ListEstudiantes::buscarPorId(String id){
     }
     return nullptr;
 }
+//mostrar estudiantes de una carrera especifica
 void ListEstudiantes::mostrarPorCarrera(String carrera){
     NodoEstudiante* actual = head;
     bool found = false;
@@ -94,3 +104,4 @@ void ListEstudiantes::mostrarPorCarrera(String carrera){
     }
     if (!found) cout << "No hay estudiantes en la carrera indicada\n";
 }
+//eso
