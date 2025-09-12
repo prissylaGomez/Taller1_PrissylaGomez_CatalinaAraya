@@ -1,73 +1,76 @@
 #include "Curso.h"
-#include <iostream>
-#include <algorithm>
 
 using namespace std;
 
-Curso::Curso(string c,string n,int maxi,string carrera,
-string profe){
-    codigo = c;
-    nombre=n;
-    estudiantes_max=maxi;
-    carrera=carrera;
-    profesor=profe;
-}
-string  Curso::getCodigo(){
-    return codigo;
-}
-string Curso::getNombre(){
-    return nombre;
-}
-int Curso::getEstudiantesMax(){
-    return estudiantes_max:
-}
-string Curso::getCarrera(){
-    return carrera;
-}
-string Curso:: getProfesor(){
-    return profesor;
-}
-vector<string> Curso::getInscritos(){
-    return Inscritos;
-}
+Curso::Curso(string c, string n, int maxi, string carrera, string profe)
+    : codigo(c), nombre(n), estudiantes_max(maxi), carrera(carrera), profesor(profe) {}
 
-void Curso::setNombre(string n){
-    nombre=n;
-}
-void Curso:: setEstudiantesMax(int max){
-    estudiantes_max=max;
-}
-void Curso:: setProfesor(strin p){
-    profesor=p;
-}
+string Curso::getCodigo(){return codigo;}
+string Curso::getNombre(){return nombre;}
+int Curso::getEstudiantesMax(){return estudiantes_max;}
+string Curso::getCarrera(){return carrera;}
+string Curso:: getProfesor(){return profesor;}
 
-bool Curso::inscribirAlumno(string idAlumno){
-    if(Inscritos.size()>= estudiantes_max){
-        cout <<"Curso lleno , no hay espacio para la inscripcion "<<endl;
-    return false;
-        
+Curso::~Curso() {}
+
+ListCursos::ListCursos(){
+    inicio = nullptr;
+}
+ListCursos::~ListCursos(){
+    NodoCursos* actual = inicio;
+    while (actual != nullptr){
+        NodoCursos* temp = actual;
+        actual = actual->next;
+        delete temp;
     }
-    if(find(Inscritos.begin(),Inscritos.end(),idAlumno)!=
-    Inscritos.end()){
-        cout<<"alumno ya inscrito una vez "<<endl;
-        return false;
+}
+void ListCursos::agregarCurso(string codigo, string nombre, int max, string carrera, string profe){
+    NodoCursos* nuevo = new NodoCursos;
+    nuevo->data = Curso(codigo, nombre, max, carrera, profe);
+    
+    nuevo->next = inicio;
+    inicio = nuevo;
+    
+    cout << "Curso creado correctamente\n";
+}
+void ListCursos::mostrarCurso(string codigo){
+    NodoCursos* actual = inicio;
+    if (!actual){
+        cout << "No hay cursos creados";
+        return;
     }
-    Inscritos.push_back(idAlumno);
-    return true;
-    }
-    bool Curso::eliminarAlumno(string idAlumno){
-        for(int i=0;i< Inscritos.size();i++){
-            if(Inscritos[i]==idAlumno){
-                Inscritos.erase(Inscritos.begin()+i);
-                return true;
-            }
+    
+    while(actual != nullptr){
+        if (codigo == actual->data.getCodigo() || codigo == actual->data.getNombre()){
+            cout << "Estos son los datos del curso\n";
+            cout << "Codigo: " << actual->data.getCodigo() << ", Nombre: " << actual->data.getNombre()
+            << ", Cantidad maxima de estudiantes: " << actual->data.getEstudiantesMax()
+            << ", Carrera: " << actual->data.getCarrera() << ", Profesor: " << actual->data.getProfesor() << "\n";
+            return;
         }
-        return false;
+        actual = actual-> next;
     }
-    
-    
-    
-    
-    
-    
+    cout << "Curso no encontrado\n";
 }
+void ListCursos::eliminarCurso(string codigo){
+    NodoCursos* actual = inicio;
+    NodoCursos* anterior = nullptr;
+    
+    while (actual != nullptr){
+        
+        if (actual->data.getCodigo() == codigo){
+            if (anterior == nullptr){
+                inicio = actual->next;
+            }else{
+                anterior->next = actual->next;
+            }
+            delete actual;
+            cout << "Curso eliminado con exito\n";
+            return;
+        }
+        anterior = actual;
+        actual = actual->next;
+    }
+    cout << "Curso no encontrado\n";
+}
+

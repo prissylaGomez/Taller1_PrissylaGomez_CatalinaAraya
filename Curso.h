@@ -1,34 +1,50 @@
+#ifndef curso_h
+#define curso_h
 
+#include <iostream>
 #include <string>
-#include<vector>
 using namespace std;
 
-class Curso{
-    private:
-        string codigo;
-        string nombre;
-        int estudiantes_max;
-        string carrera;
-        string profesor;
-        vector<string> Inscritos;
-    public:
-    Curso(string c , string n , int max, string carrera, 
-    profe);
-    
+struct NodoInscritos;
+
+class Curso {
+private:
+    string codigo;
+    string nombre;
+    int estudiantes_max;
+    string carrera;
+    string profesor;
+    NodoInscritos* inicio;
+
+public:
+    Curso(){}
+    Curso(string c, string n, int max, string car, string profe);
+    ~Curso();
+
     string getCodigo();
     string getNombre();
     int getEstudiantesMax();
     string getCarrera();
     string getProfesor();
-    vector<string>getInscritos();
     
-    void setNombre(string n);
-    void setEstudiantesMax(int max);
-    void setProfesor(string profe);
-    
-    bool inscribirestudiante(string idAlumno);
-    bool eliminaEstudiante(string idAlumno);
-    
+    void inscribirEstudiante(string idAlumno);
+    void eliminarEstudiante(string idAlumno);
     void mostrarInfo();
 };
-
+struct NodoCursos {
+    Curso data;
+    NodoCursos* next;
+};
+class ListCursos{
+    private:
+        NodoCursos* inicio;
+    public:
+        ListCursos();
+        ~ListCursos();
+        
+        void agregarCurso(string codigo, string nombre, int max, string carrera, string profesor);
+        void eliminarCurso(string codigo);
+        void mostrarCurso(string codigo);
+        void mostrarInfoCursos();
+};
+#endif
