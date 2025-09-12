@@ -55,7 +55,7 @@ int main(){
                         }
                         case 2:{
                             string id;
-                            cout << "Ingrese el id del alumno que desea buscar: ";
+                            cout << "Ingrese el id o nombre del alumno que desea buscar: ";
                             cin >> id;
                             list.buscarEstudiante(id);
                             break;
