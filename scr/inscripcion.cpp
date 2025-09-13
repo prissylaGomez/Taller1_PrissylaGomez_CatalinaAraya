@@ -1,5 +1,10 @@
+/*
+inscripcion.cpp
+implementacion de la clase inscripcion.h
+adelante lo explico con más detalle.
+*/
 #include "inscripcion.h"
-
+//el contructor y destructor a
 ListInscripciones::ListInscripciones(){ head = nullptr; }
 
 ListInscripciones::~ListInscripciones(){
@@ -15,7 +20,7 @@ ListInscripciones::~ListInscripciones(){
         delete tmp;
     }
 }
-
+//funciones
 // Inscribe al alumno en el curso 
 void ListInscripciones::inscribir(string idAlumno, string codigoCurso){
     NodoInscripcion* eso = head;
@@ -56,3 +61,4 @@ void ListInscripciones::eliminarInscripcion(string idAlumno, string codigoCurso)
     cout << "Inscripcion no encontrada para " << idAlumno << " en " << codigoCurso << ".
 ";
 }
+
