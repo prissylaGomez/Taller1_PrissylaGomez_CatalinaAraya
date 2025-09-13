@@ -1,13 +1,17 @@
+/*
+El curso.cpp
+aqui esta la implementacion de la clase y el uso de la lista enlazada yeii 
+*/
 #include "Curso.h"
 #include "estudiante.h"
 
 using namespace std;
-
+//constructor
 Curso::Curso(string c, string n, int maxi, string carrera, string profe)
     : codigo(c), nombre(n), estudiantes_max(maxi), carrera(carrera), profesor(profe) {
         inicioInscritos = nullptr;
     }
-
+//getters
 string Curso::getCodigo(){return codigo;}
 string Curso::getNombre(){return nombre;}
 int Curso::getEstudiantesMax(){return estudiantes_max;}
@@ -15,18 +19,20 @@ string Curso::getCarrera(){return carrera;}
 string Curso:: getProfesor(){return profesor;}
 
 Curso::~Curso() {}
-
+//metodos de la lista
 ListCursos::ListCursos(){
     inicio = nullptr;
 }
 ListCursos::~ListCursos(){
+    //liberamos memoria d elos nodos aqui
     NodoCursos* actual = inicio;
     while (actual != nullptr){
         NodoCursos* temp = actual;
         actual = actual->next;
         delete temp;
     }
-}
+}//aqui estan los usos de la lista enlazada
+//agregamos un curso al comienzo de la lista
 void ListCursos::agregarCurso(string codigo, string nombre, int max, string carrera, string profe){
     NodoCursos* nuevo = new NodoCursos;
     nuevo->data = Curso(codigo, nombre, max, carrera, profe);
@@ -35,7 +41,7 @@ void ListCursos::agregarCurso(string codigo, string nombre, int max, string carr
      = nuevo;
     
     cout << "Curso creado correctamente\n";
-}
+}//buscamos curso por su codigo y lo mostramos 
 void ListCursos::mostrarCurso(string codigo){
     NodoCursos* actual = inicio;
     if (!actual){
@@ -54,7 +60,7 @@ void ListCursos::mostrarCurso(string codigo){
         actual = actual-> next;
     }
     cout << "Curso no encontrado\n";
-}
+}//eliminamos el curso por codigo
 void ListCursos::eliminarCurso(string codigo){
     NodoCursos* actual = inicio;
     NodoCursos* anterior = nullptr;
@@ -75,7 +81,7 @@ void ListCursos::eliminarCurso(string codigo){
         actual = actual->next;
     }
     cout << "Curso no encontrado\n";
-}
+}//inscribimos estudiante 
 void Curso::incribirEstudiante(ListEstudiante listE, string id){
     EStudiante* e = ListEstudiante.
 }
